@@ -1,0 +1,213 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  position: relative;
+  background: #f9fafb;
+  color: #222;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 60px;
+  background: white;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  position:sticky;
+  top: 0;
+  z-index: 1000;  
+    
+    /* 4. Add background so content doesn't show through */
+     background-color: white; /* Use your actual navbar background color */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);/* Optional: Adds a subtle shadow when scrolling */
+    
+    /* Ensure it takes full width */
+      width: 100%;
+} 
+
+ .logo {
+  font-size: 1.6rem;
+  font-weight: bold;
+}
+.logo span {
+  color: #007bff;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 25px;
+}
+.nav-links a {
+  text-decoration: none;
+  color: #333;
+  transition: 0.2s;
+}
+.nav-links a:hover {
+  color: #007bff;
+}
+
+.hero {
+    position: relative;
+  height: 80vh;
+  background: linear-gradient(135deg, #1f50ab, #00b4d8,rgb(247, 193, 202));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-align: center;
+  padding: 0 20px;
+} 
+.hero-text{ 
+  /* Ensures text is centered within the hero area */
+   max-width: 800px;
+    padding: 20px;
+} 
+
+ .hero h1 {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+}
+
+.btn {
+  background: white;
+  color: #007bff;
+  border: none;
+  padding: 10px 20px;
+  position: absolute;
+  bottom: 50px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+  text-decoration: none;
+  
+}
+.bt{
+  margin-top: 50px;
+    background: white;
+  color: #007bff;
+  border: none;
+  padding: 10px 50px;
+  position: absolute;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+  text-decoration: none;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+/* Jab mouse button par aaye (hover) */
+.bt:hover {
+    /* Background color ko halka blue karein */
+    background-color: #e6f7ff; /* Yeh bahut hi light blue hai */
+    
+    /* Text color ko thoda gehra blue kar dein (agar zarurat ho) */
+    color: #0056b3; 
+    
+    /* Optional: Agar aap shadow chahte hain */
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2); 
+}
+.btn:hover {
+  background: #007bff;
+  color: white;
+}
+
+.skill-section {
+ padding: 60px 20%; 
+    text-align: center;
+    
+    /* NEW: Height badhana taaki yeh poori screen le */
+    min-height: 80vh; /* Ya 100vh, jaisa aap chahen. 80vh Hero jitna tha. */
+    
+    /* NEW: Content ko center karne ke liye */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; /* Content ko top par rakhega */
+}
+.skill-section h2 {
+  margin-bottom: 20px;
+}
+
+.skill-form input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 20px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  outline: none;
+  background-color: white;
+}
+.skill-form input:focus {
+    /* Background color ko halka blue kar do */
+    background-color: #f0f8ff; /* Light, subtle blue color */
+    
+    /* Border ko bhi blue kar do, taaki focus clear ho */
+    border-color: #007bff; 
+    
+    /* Optional: Transition add karein taaki change smooth ho */
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+.skill-form button {
+  margin-left: 10px;
+
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+  background: white;
+  margin-top: 40px;
+  box-shadow: 0 -1px 5px rgba(0,0,0,0.05);
+} 
+
+/* --- THE ANIMATION STYLES --- */
+/* 1. Target the main heading container */
+ .animated-heading{
+  font-size: 3.5em;/* Adjust to your preferred size */
+   margin-bottom: 20px;
+  overflow: hidden;/*Important: prevents the starting position from showing scrollbars */ 
+
+
+ } 
+/* 2. Target each individual word (span) */
+ .animated-heading span{
+ display: inline-block; /*yaha pe hum ek-ek word ko display kar rahe hai isliye inline-block hai. */
+  opacity:0;/*isse word invisiable ho jayenge */
+   animation: shiftIn 1.2s cubic-bezier(0.25,0.45,0.46,0.98)forwards;/*Apply the animation  */
+ /* Stagger the animation start time */
+     /* calc(0.15s * var(--i)) uses the number from the HTML (1, 2, 3...) */
+  animation-delay: calc(0.15s * var(--i));
+
+} 
+/* 3. Define the animation keyframes */
+
+ @keyframes shiftIn{
+  0%{
+   transform: translateX(-100px);/*-100px means start from left side  */
+     opacity: 0;
+  }
+  100%{
+     transform: translateX(0);/*end at the normal position  */
+     opacity: 1;/*1 isliye kiyuki ab hume words ko show karna hai. */
+    }
+  } 
+ 
+  /* skilltrac.css file mein, shuru mein ya ant mein add karein */
+.hidden {
+    display: none !important; /* Yeh class sections ko chupa degi */
+}
+
+
+
+
+
+
+
+ 
