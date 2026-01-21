@@ -2,6 +2,11 @@
 
 
 
+
+
+
+
+
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
 const App = () => {
@@ -15,6 +20,31 @@ const App = () => {
   // App function ke andar, baaki states ke saath ye likhein:
     const [teamSize, setTeamSize] = useState(5);
     const [teamSynergy, setTeamSynergy] = useState(0);
+
+    const exportToCSV = () => {
+  if (matches.length === 0) {
+    alert("Pehle matches search karein!");
+    return;
+  }
+
+  // Headers for the Excel/CSV file
+  let csvContent = "data:text/csv;charset=utf-8,Name,Role,Score,GitHub,LinkedIn\n";
+
+  // Adding each matched student's data
+  matches.forEach(student => {
+    const row = `${student.name},${student.role},${student.score}%,${student.github},${student.linkedin}`;
+    csvContent += row + "\n";
+  });
+
+  // Download logic
+  const encodedUri = encodeURI(csvContent);
+  const link = document.createElement("a");
+  link.setAttribute("href", encodedUri);
+  link.setAttribute("download", "Skill_Sentry_Team_Data.csv");
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+};
 
  
     const loadSampleData = () => {
@@ -294,6 +324,25 @@ const App = () => {
   </div>
 )}
 
+
+    <div style={{ textAlign: 'center', margin: '20px 0' }}>
+  <button 
+    onClick={exportToCSV}
+    style={{
+      padding: '12px 25px',
+      background: '#28a745', // Green color for download
+      color: 'white',
+      border: 'none',
+      borderRadius: '30px',
+      fontWeight: 'bold',
+      cursor: 'pointer',
+      boxShadow: '0 4px 10px rgba(40,167,69,0.3)'
+    }}
+  >
+    📥 Download Selected Team (CSV)
+  </button>
+</div>
+
     <p style={{ margin: '0', fontSize: '0.9rem', opacity: '0.9' }}>
       Overall strength based on your {matches.length} selected members.
     </p>
@@ -302,10 +351,6 @@ const App = () => {
     <div style={{ width: '100%', height: '10px', background: 'rgba(255,255,255,0.3)', borderRadius: '5px', marginTop: '15px', overflow: 'hidden' }}>
       <div style={{ width: `${teamSynergy}%`, height: '100%', background: 'white', transition: 'width 1s ease-in-out' }}></div>
     </div>
-
-   
-
-
 
       {/* MATCHING CARDS CONTAINER */}
         <div style={{
