@@ -7,8 +7,60 @@
 
 
 
+
+
+
+
+
 // import React, { useState, useEffect } from 'react';
 // import ReactDOM from 'react-dom/client';
+
+
+
+// const jobsData = [
+//   { id: 1, guide: "Google", role: "Software Intern", skills: ["React", "Node.js", "Firebase"], match: "95%" },
+//   { id: 2, guide: "Dr. Prajapati", role: "AI Research", skills: ["Python", "TensorFlow", "NLP"], match: "80%" },
+//   { id: 3, guide: "Web Solutions", role: "UI Designer", skills: ["Figma", "Tailwind", "Adobe XD"], match: "70%" },
+//   { id: 4, guide: "Microsoft", role: "Cloud Intern", skills: ["Azure", "Docker", "Kubernetes"], match: "85%" },
+//   { id: 5, guide: "Amazon", role: "Backend Dev", skills: ["Java", "AWS", "SQL"], match: "90%" },
+//   { id: 6, guide: "Meta", role: "Full Stack", skills: ["Next.js", "GraphQL", "MongoDB"], match: "88%" },
+//   { id: 7, guide: "TCS Research", role: "Blockchain Intern", skills: ["Solidity", "Ether.js", "Web3"], match: "75%" },
+//   { id: 8, guide: "Infosys", role: "Cyber Security", skills: ["Pentesting", "Linux", "Ethical Hacking"], match: "82%" },
+//   { id: 9, guide: "Skill Sentry AI", role: "ML Engineer", skills: ["Scikit-learn", "Pandas", "Flask"], match: "92%" },
+
+//   { id: 10, guide: "Wipro", role: "Data Analyst", skills: ["Excel", "Power BI", "SQL"], match: "78%" },
+//   { id: 11, guide: "Accenture", role: "Business Analyst", skills: ["Requirement Analysis", "Agile", "JIRA"], match: "83%" },
+//   { id: 12, guide: "IBM", role: "Data Scientist", skills: ["Python", "R", "Machine Learning"], match: "88%" },
+//   { id: 13, guide: "Oracle", role: "Database Admin", skills: ["MySQL", "PostgreSQL", "Backup"], match: "80%" },
+//   { id: 14, guide: "Zoho", role: "Product Intern", skills: ["Wireframing", "UX Research", "Prototyping"], match: "76%" },
+//   { id: 15, guide: "HCL", role: "DevOps Intern", skills: ["CI/CD", "Docker", "Jenkins"], match: "84%" },
+//   { id: 16, guide: "Capgemini", role: "QA Engineer", skills: ["Selenium", "Manual Testing", "JMeter"], match: "79%" },
+//   { id: 17, guide: "Deloitte", role: "Tech Consultant", skills: ["Cloud", "Security", "Architecture"], match: "86%" },
+//   { id: 18, guide: "Flipkart", role: "Frontend Dev", skills: ["React", "Redux", "CSS"], match: "89%" },
+//   { id: 19, guide: "Paytm", role: "Mobile App Dev", skills: ["Flutter", "Dart", "Firebase"], match: "87%" },
+
+//   { id: 20, guide: "Swiggy", role: "Backend Intern", skills: ["Node.js", "Express", "MongoDB"], match: "85%" },
+//   { id: 21, guide: "Zomato", role: "Product Analyst", skills: ["SQL", "Tableau", "Statistics"], match: "81%" },
+//   { id: 22, guide: "Byjus", role: "EdTech Developer", skills: ["React", "Node.js", "REST API"], match: "83%" },
+//   { id: 23, guide: "Razorpay", role: "FinTech Intern", skills: ["Java", "Spring Boot", "Microservices"], match: "88%" },
+//   { id: 24, guide: "PhonePe", role: "Payment Systems", skills: ["Kotlin", "API Design", "Security"], match: "86%" },
+//   { id: 25, guide: "Ola", role: "Data Engineer", skills: ["Spark", "Hadoop", "ETL"], match: "82%" },
+//   { id: 26, guide: "Uber", role: "Maps Engineer", skills: ["C++", "Algorithms", "GIS"], match: "90%" },
+//   { id: 27, guide: "Tesla", role: "Autonomous AI", skills: ["Computer Vision", "PyTorch", "ROS"], match: "91%" },
+//   { id: 28, guide: "Nvidia", role: "GPU Programmer", skills: ["CUDA", "C++", "Parallel Computing"], match: "89%" },
+//   { id: 29, guide: "Adobe", role: "Creative Dev", skills: ["JavaScript", "Canvas API", "UX"], match: "84%" },
+//   { id: 30, guide: "OpenAI Labs", role: "AI Engineer", skills: ["Deep Learning", "Transformers", "Python"], match: "96%" }
+// ];
+
+
+
+
+
+
+
+
+
+
 // const App = () => {
 
 //   // --- SAARI STATES FUNCTION KE ANDAR HONI CHAHIYE ---
@@ -98,6 +150,8 @@
       
 //     ];
 
+
+
   
 //     setStudents(sampleStudents);
 //     localStorage.setItem('students', JSON.stringify(sampleStudents));
@@ -186,57 +240,195 @@
 //     cursor: 'pointer',
 //     fontWeight: 'bold'
 //   }}>
-//     Load Demo Data
+//    Load demo data
 //   </button>
 // </ul>
 //       </nav>
 
-//       {view === 'home' && (
-//         <section className="hero">
-//           <div className="hero-text">
-//             <h1 className="animated-heading">
-//               <span style={{"--i": 1}}>Build</span> <span style={{"--i": 2}}>Smarter</span> 
-//               <span style={{"--i": 3}}>Teams</span> <span style={{"--i": 4}}>with</span> <span style={{"--i": 5}}>AI</span>
-//             </h1>
-//             <p>Let AI help you create balanced project teams based on student skills and interests.</p>
-//             <button className="btn" onClick={() => setView('student')} style={{marginTop: '30px'}}>Get Started</button>
+        
+
+
+
+//         {view === 'home' && (
+//   <> {/* Fragment shuru */}
+//     <section className="hero">
+//       <div className="hero-text">
+//         <h1 className="animated-heading">
+//           <span style={{"--i": 1}}>Build</span> <span style={{"--i": 2}}>Smarter</span> 
+//           <span style={{"--i": 3}}>Teams</span> <span style={{"--i": 4}}>with</span> <span style={{"--i": 5}}>AI</span>
+//         </h1>
+//         <p>Let AI help you create balanced project teams based on student skills and interests.</p>
+//         <button className="btn" onClick={() => setView('student')} style={{marginTop: '30px'}}>Get Started</button>
+//       </div>
+//     </section>
+
+
+
+
+
+
+//     {/* Marketplace Section - Forced Centering */}
+// <section className="w-full py-20 bg-[#f8fafc]">
+//   {/* Is container mein maine inline style di hai taaki alignment pakka ho jaye */}
+//   <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 40px' }}>
+    
+//     {/* Title Section: Thoda right margin dene ke liye padding-left badha diya hai */}
+//     <div className="flex items-center gap-3 mb-12" style={{ paddingLeft: '20px' }}>
+//       <h2 className="text-2xl font-black text-slate-600 tracking-tight" style={{paddingTop:'20px'}}>
+//         Current Opportunities
+//       </h2>
+//       <span className="text-xl" style={{paddingTop:'20px'}}>🚀</span>
+//     </div>
+    
+//     {/* Cards Grid: Desktop par 3 items, center aligned */}
+//     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10" style={{paddingTop:'90px'}}>
+//       {jobsData.map((job) => (
+//         <div key={job.id} className="bg-white rounded-[2rem] p-8 border border-slate-100 shadow-xl shadow-slate-200/50 hover:-translate-y-2 transition-all duration-300 flex flex-col min-h-[200px]">
+          
+//           <div className="flex justify-between items-start mb-6">
+//             <div className="h-10 w-10 bg-indigo-400 rounded-xl flex items-center justify-center text-white text-xl font-bold shadow-lg shadow-indigo-100">
+//               {job.guide[0]}
+//             </div>
+//             <span className="text-[10px] font-bold text-emerald-600 bg-emerald-10 px-3 py-1 rounded-full uppercase tracking-widest" style={{padding:'20px 30px' }}>
+//               Active
+//             </span>
 //           </div>
-//         </section>
-//       )}
 
-//       {view === 'student' && (
-//         <section className="skill-section">
-//           <div style={{ background: 'white', padding: '30px', borderRadius: '15px', boxShadow: '0 4px 15px rgba(0,0,0,0.1)', width: '100%', maxWidth: '500px', textAlign:'left' }}>
-//             <h2 style={{textAlign:'center', marginBottom:'20px'}}>Create Your Profile</h2>
-//             <form className="skill-form" onSubmit={handleStudentSubmit} style={{display:'flex', flexDirection:'column', gap:'10px'}}>
-              
-//               <label>Full Name</label>
-//               <input type="text" placeholder="Name" value={stuData.name} onChange={(e)=>setStuData({...stuData, name: e.target.value})} required />
+//           <h3 className="text-ml font-extrabold text-slate-600 mb-1" style={{paddingLeft:'10px'}}>{job.role}</h3>
+//           <p className="text-slate-500 font-semibold mb-6 flex items-center gap-2" style={{paddingLeft:'10px'}}>
+//             <span className="h-1.5 w-1.5 bg-slate-300 rounded-full"></span>
+//             {job.guide}
+//           </p>
 
-//               <label>Status</label>
-//               <select value={stuData.role} onChange={(e)=>setStuData({...stuData, role: e.target.value})} style={{padding:'10px', borderRadius:'8px', border:'1px solid #ccc'}}>
-//                 <option value="fresher">Fresher</option>
-//                 <option value="experienced">Experienced</option>
+//           <div className="flex flex-wrap gap-2 mb-8">
+//             {job.skills.map((s, i) => (
+//               <span key={i} className="bg-slate-50 text-slate-600 text-[12px] font-bold px-3 py-1.5 rounded-lg border border-slate-100" style={{paddingLeft:'13px'}}>
+//                 {s}
+//               </span>
+//             ))}
+//           </div>
+
+//           <div className="mt-auto pt-6 border-t border-slate-50 flex items-center justify-between"  style={{paddingLeft:'13px'}}>
+//             <div>
+//               <p className="text-[10px] text-slate-400 font-bold uppercase mb-1"  style={{paddingTop:'10px'}}>Match Score</p>
+//               <p className="text-1.5xl font-black text-indigo-500 italic"  style={{paddingLeft:'13px'}}>{job.match}</p>
+//             </div>
+//             <button className="bg-yellow-200 text-gray-800 px-6 py-3 rounded-xl font-bold text-sm hover:bg-yellow-400 transition-all mt-auto" style={{paddingRight:'5px'}}>
+//               Apply Now
+//             </button>
+//           </div>
+//         </div>
+//       ))}
+//     </div>
+//   </div>
+// </section>
+//   </> /* Fragment khatam */
+// )}
+//         {view === 'student' && (
+//   <section className="py-16 bg-[#f8fafc] min-h-screen">
+//      <div className='flex justify-center'>
+//     <div className="max-w-3xl mx-auto px-6">
+      
+//       {/* Header Section */}
+      
+//       <div className="text-center mb-12">
+//         <h2 className="text-2xl font-black text-slate-600 mb-4" style={{padding:'20px'}}>Create Your Profile</h2>
+//         <p className="text-slate-550 font-medium" style={{padding:'20px'}}>Showcase your skills to recruiters and find the perfect team.</p>
+//       </div>
+      
+//       {/* Modern Form Card */}
+//       <div className="bg-white rounded-[1.5rem] p-10 shadow-2xl shadow-slate-200/60 border border-slate-100">
+//         <form onSubmit={handleStudentSubmit} className="space-y-8">
+          
+//           {/* Section 1: Basic Info */}
+//           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+//             <div className="flex flex-col gap-2">
+//               <label className="text-sm font-black text-slate-500 uppercase tracking-widest ml-1">Full Name</label>
+//               <input 
+//                 type="text" 
+//                 className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-5 py-4 focus:ring-4 focus:ring-indigo-100 focus:border-indigo-500 outline-none transition-all font-semibold"
+//                 placeholder="Ex: Enter your name" 
+//                 value={stuData.name} 
+//                 onChange={(e)=>setStuData({...stuData, name: e.target.value})} 
+//                 required 
+//               />
+//             </div>
+
+//             <div className="flex flex-col gap-2">
+//               <label className="text-sm font-black text-slate-500 uppercase tracking-widest ml-1">Current Status</label>
+//               <select 
+//                 value={stuData.role} 
+//                 onChange={(e)=>setStuData({...stuData, role: e.target.value})}
+//                 className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-5 py-4 focus:ring-4 focus:ring-indigo-100 outline-none transition-all font-semibold appearance-none"
+//               >
+//                 <option value="fresher">🎓 Fresher</option>
+//                 <option value="experienced">💼 Experienced</option>
 //               </select>
-
-//               {stuData.role === 'experienced' && (
-//                 <input type="text" placeholder="Work Experience Details" value={stuData.experience} onChange={(e)=>setStuData({...stuData, experience: e.target.value})} />
-//               )}
-
-//               <label>GitHub & LinkedIn</label>
-//               <input type="url" placeholder="GitHub URL" value={stuData.github} onChange={(e)=>setStuData({...stuData, github: e.target.value})} />
-//               <input type="url" placeholder="LinkedIn URL" value={stuData.linkedin} onChange={(e)=>setStuData({...stuData, linkedin: e.target.value})} />
-
-//               <label>Projects & Skills</label>
-//               <textarea placeholder="Major Projects" value={stuData.projects} onChange={(e)=>setStuData({...stuData, projects: e.target.value})} style={{padding:'10px', borderRadius:'8px', border:'1px solid #ccc'}} />
-//               <input type="text" placeholder="Skills (React, Java, Python)" value={stuData.skills} onChange={(e)=>setStuData({...stuData, skills: e.target.value})} required />
-
-//               <button type="submit" className="bt" style={{position:'relative', width:'100%', marginTop:'10px'}}>Register Profile</button>
-//             </form>
+//             </div>
 //           </div>
-//         </section>
-//       )}
 
+//           {/* Section 2: Social Links */}
+//           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+//             <div className="flex flex-col gap-2">
+//               <label className="text-sm font-black text-slate-500 uppercase tracking-widest ml-1">GitHub URL</label>
+//               <input 
+//                 type="url" 
+//                 className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-5 py-4 focus:ring-4 focus:ring-indigo-100 outline-none transition-all"
+//                 placeholder="https://github.com/..." 
+//                 value={stuData.github} 
+//                 onChange={(e)=>setStuData({...stuData, github: e.target.value})} 
+//               />
+//             </div>
+//             <div className="flex flex-col gap-2">
+//               <label className="text-sm font-black text-slate-500 uppercase tracking-widest ml-1">LinkedIn URL</label>
+//               <input 
+//                 type="url" 
+//                 className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-5 py-4 focus:ring-4 focus:ring-indigo-100 outline-none transition-all"
+//                 placeholder="https://linkedin.com/in/..." 
+//                 value={stuData.linkedin} 
+//                 onChange={(e)=>setStuData({...stuData, linkedin: e.target.value})} 
+//               />
+//             </div>
+//           </div>
+
+//           {/* Section 3: Professional Info */}
+//           <div className="flex flex-col gap-2">
+//             <label className="text-sm font-black text-slate-500 uppercase tracking-widest ml-1">Skills (Comma Separated)</label>
+//             <input 
+//               type="text" 
+//               className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-5 py-4 focus:ring-4 focus:ring-indigo-100 outline-none transition-all font-semibold"
+//               placeholder="React, Node.js, Tailwind, MongoDB" 
+//               value={stuData.skills} 
+//               onChange={(e)=>setStuData({...stuData, skills: e.target.value})} 
+//               required 
+//             />
+//           </div>
+
+//           <div className="flex flex-col gap-2">
+//             <label className="text-sm font-black text-slate-500 uppercase tracking-widest ml-1">Major Projects</label>
+//             <textarea 
+//               rows="3"
+//               className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-5 py-4 focus:ring-4 focus:ring-indigo-100 outline-none transition-all font-medium"
+//               placeholder="Briefly describe your top 2 projects..." 
+//               value={stuData.projects} 
+//               onChange={(e)=>setStuData({...stuData, projects: e.target.value})} 
+//             />
+//           </div>
+
+//           {/* Submit Button */}
+//           <button 
+//             type="submit" 
+//             className="w-full bg-slate-700 text-white py-5 rounded-[1.5rem] font-black text-lg hover:bg-sky-900 hover:shadow-xl hover:shadow-indigo-200 transition-all active:scale-[0.98] mt-4"
+//           >
+//             Register Profile 🚀
+//           </button>
+//         </form>
+//       </div>
+//     </div>
+
+//     </div>
+//   </section>
+// )}
 //       {view === 'guide' && (
 //   <section className="skill-section">
 //     <h2>Guide: Team Matching</h2>
@@ -459,23 +651,8 @@
 
 
 
-
-
-
-
-
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
-
-
-// const jobsData = [
-//   { id: 1, guide: "Google", role: "Software Intern", skills: ["React", "Node.js"], match: "95%" },
-//   { id: 2, guide: "Dr. Prajapati", role: "AI Research", skills: ["Python", "ML"], match: "80%" },
-//   { id: 3, guide: "Web Solutions", role: "UI Designer", skills: ["Figma", "Tailwind"], match: "70%" },
-//   { id: 4, guide: "Microsoft", role: "Cloud Intern", skills: ["Azure", "Docker"], match: "85%" },
-//   { id: 5, guide: "Amazon", role: "Backend Dev", skills: ["Java", "AWS"], match: "90%" }
-// ];
-
 
 
 
@@ -788,52 +965,113 @@ const App = () => {
 
 
 
-
-
   </> /* Fragment khatam */
 )}
+        {view === 'student' && (
+  <section className="py-16 bg-[#f8fafc] min-h-screen">
+     <div className='flex justify-center'>
+    <div className="max-w-3xl mx-auto px-6">
+      
+      {/* Header Section */}
+      
+      <div className="text-center mb-12">
+        <h2 className="text-2xl font-black text-slate-600 mb-4" style={{padding:'20px'}}>Create Your Profile</h2>
+        <p className="text-slate-550 font-medium" style={{padding:'20px'}}>Showcase your skills to recruiters and find the perfect team.</p>
+      </div>
+      
+      {/* Modern Form Card */}
+      <div className="bg-white rounded-[1.5rem] p-10 shadow-2xl shadow-slate-200/60 border border-slate-100">
+        <form onSubmit={handleStudentSubmit} className="space-y-8">
+          
+          {/* Section 1: Basic Info */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="flex flex-col gap-2">
+              <label className="text-sm font-black text-slate-500 uppercase tracking-widest ml-1">Full Name</label>
+              <input 
+                type="text" 
+                className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-5 py-4 focus:ring-4 focus:ring-indigo-100 focus:border-indigo-500 outline-none transition-all font-semibold"
+                placeholder="Ex: Enter your name" 
+                value={stuData.name} 
+                onChange={(e)=>setStuData({...stuData, name: e.target.value})} 
+                required 
+              />
+            </div>
 
-
-
-
-
-
-
-
-
-      {view === 'student' && (
-        <section className="skill-section">
-          <div style={{ background: 'white', padding: '30px', borderRadius: '15px', boxShadow: '0 4px 15px rgba(0,0,0,0.1)', width: '100%', maxWidth: '500px', textAlign:'left' }}>
-            <h2 style={{textAlign:'center', marginBottom:'20px'}}>Create Your Profile</h2>
-            <form className="skill-form" onSubmit={handleStudentSubmit} style={{display:'flex', flexDirection:'column', gap:'10px'}}>
-              
-              <label>Full Name</label>
-              <input type="text" placeholder="Name" value={stuData.name} onChange={(e)=>setStuData({...stuData, name: e.target.value})} required />
-
-              <label>Status</label>
-              <select value={stuData.role} onChange={(e)=>setStuData({...stuData, role: e.target.value})} style={{padding:'10px', borderRadius:'8px', border:'1px solid #ccc'}}>
-                <option value="fresher">Fresher</option>
-                <option value="experienced">Experienced</option>
+            <div className="flex flex-col gap-2">
+              <label className="text-sm font-black text-slate-500 uppercase tracking-widest ml-1">Current Status</label>
+              <select 
+                value={stuData.role} 
+                onChange={(e)=>setStuData({...stuData, role: e.target.value})}
+                className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-5 py-4 focus:ring-4 focus:ring-indigo-100 outline-none transition-all font-semibold appearance-none"
+              >
+                <option value="fresher">🎓 Fresher</option>
+                <option value="experienced">💼 Experienced</option>
               </select>
-
-              {stuData.role === 'experienced' && (
-                <input type="text" placeholder="Work Experience Details" value={stuData.experience} onChange={(e)=>setStuData({...stuData, experience: e.target.value})} />
-              )}
-
-              <label>GitHub & LinkedIn</label>
-              <input type="url" placeholder="GitHub URL" value={stuData.github} onChange={(e)=>setStuData({...stuData, github: e.target.value})} />
-              <input type="url" placeholder="LinkedIn URL" value={stuData.linkedin} onChange={(e)=>setStuData({...stuData, linkedin: e.target.value})} />
-
-              <label>Projects & Skills</label>
-              <textarea placeholder="Major Projects" value={stuData.projects} onChange={(e)=>setStuData({...stuData, projects: e.target.value})} style={{padding:'10px', borderRadius:'8px', border:'1px solid #ccc'}} />
-              <input type="text" placeholder="Skills (React, Java, Python)" value={stuData.skills} onChange={(e)=>setStuData({...stuData, skills: e.target.value})} required />
-
-              <button type="submit" className="bt" style={{position:'relative', width:'100%', marginTop:'10px'}}>Register Profile</button>
-            </form>
+            </div>
           </div>
-        </section>
-      )}
 
+          {/* Section 2: Social Links */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="flex flex-col gap-2">
+              <label className="text-sm font-black text-slate-500 uppercase tracking-widest ml-1">GitHub URL</label>
+              <input 
+                type="url" 
+                className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-5 py-4 focus:ring-4 focus:ring-indigo-100 outline-none transition-all"
+                placeholder="https://github.com/..." 
+                value={stuData.github} 
+                onChange={(e)=>setStuData({...stuData, github: e.target.value})} 
+              />
+            </div>
+            <div className="flex flex-col gap-2">
+              <label className="text-sm font-black text-slate-500 uppercase tracking-widest ml-1">LinkedIn URL</label>
+              <input 
+                type="url" 
+                className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-5 py-4 focus:ring-4 focus:ring-indigo-100 outline-none transition-all"
+                placeholder="https://linkedin.com/in/..." 
+                value={stuData.linkedin} 
+                onChange={(e)=>setStuData({...stuData, linkedin: e.target.value})} 
+              />
+            </div>
+          </div>
+
+          {/* Section 3: Professional Info */}
+          <div className="flex flex-col gap-2">
+            <label className="text-sm font-black text-slate-500 uppercase tracking-widest ml-1">Skills (Comma Separated)</label>
+            <input 
+              type="text" 
+              className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-5 py-4 focus:ring-4 focus:ring-indigo-100 outline-none transition-all font-semibold"
+              placeholder="React, Node.js, Tailwind, MongoDB" 
+              value={stuData.skills} 
+              onChange={(e)=>setStuData({...stuData, skills: e.target.value})} 
+              required 
+            />
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <label className="text-sm font-black text-slate-500 uppercase tracking-widest ml-1">Major Projects</label>
+            <textarea 
+              rows="3"
+              className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-5 py-4 focus:ring-4 focus:ring-indigo-100 outline-none transition-all font-medium"
+              placeholder="Briefly describe your top 2 projects..." 
+              value={stuData.projects} 
+              onChange={(e)=>setStuData({...stuData, projects: e.target.value})} 
+            />
+          </div>
+
+          {/* Submit Button */}
+          <button 
+            type="submit" 
+            className="w-full bg-slate-700 text-white py-5 rounded-[1.5rem] font-black text-lg hover:bg-sky-900 hover:shadow-xl hover:shadow-indigo-200 transition-all active:scale-[0.98] mt-4"
+          >
+            Register Profile 🚀
+          </button>
+        </form>
+      </div>
+    </div>
+
+    </div>
+  </section>
+)}
       {view === 'guide' && (
   <section className="skill-section">
     <h2>Guide: Team Matching</h2>
