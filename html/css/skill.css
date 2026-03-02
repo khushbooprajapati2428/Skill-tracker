@@ -4,6 +4,10 @@
 @import "tailwindcss";
 
 
+/* Agar aapne manual CSS likhi hai, toh usey in lines ke NEECHE rakhein */
+
+
+
 
 
 
@@ -216,7 +220,62 @@ footer {
 
 
 
+/* Animation for bubbles  */
+/* @import "tailwindcss";
+
+/* Manual Keyframes - Kyun ki config detect nahi ho raha */
+/* @keyframes float {
+  0%, 100% { 
+    transform: translateY(0) translateX(0); 
+  }
+  50% { 
+    transform: translateY(-50px) translateX(15px); 
+  }
+} */
+
+/* Custom Classes */
+/* .animate-float {
+  animation: float 6s ease-in-out infinite !important;
+}
+
+.animate-float-delayed {
+  animation: float 10s ease-in-out infinite 2s !important;
+} */
 
 
+
+@import "tailwindcss";
+
+/* 1. Upar wale bubble ke liye: Zyada movement */
+@keyframes float-up {
+  0%, 100% { 
+    transform: translateY(0) translateX(0); 
+  }
+  50% { 
+    /* Is value ko -150px se -200px tak adjust karein heading tak pahunchne ke liye */
+    transform: translateY(-180px) translateX(25px); 
+  }
+}
+
+/* 2. Niche wale bubble ke liye: Normal movement */
+@keyframes float-down {
+  0%, 100% { 
+    transform: translateY(0) translateX(0); 
+  }
+  50% { 
+    transform: translateY(-80px) translateX(-20px); 
+  }
+}
+
+/* Custom Classes */
+.animate-float {
+  /* float-up keyframes use karein */
+  animation: float-up 8s ease-in-out infinite 2s !important;
+}
+
+.animate-float-delayed {
+  /* float-down keyframes use karein */
+  animation: float-down 8s ease-in-out infinite 2s !important;
+}
 
  
