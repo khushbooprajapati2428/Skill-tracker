@@ -3,7 +3,6 @@
 
 
 
-
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
 import findMatches from './React/src/component/utility/findMatches';
@@ -16,6 +15,7 @@ import ViewHome from './React/src/component/utility/ViewHome';
 import ViewStudent from './React/src/component/utility/ViewStudent';
 import EmailPass from './React/src/component/utility/EmailPass';
 import { handleRegister } from './React/src/component/utility/handleRegister';
+import ViewDashboard from './React/src/component/utility/ViewDashboard';
 
 
 
@@ -34,6 +34,9 @@ const App = () => {
   const [stuData, setStuData] = useState({
     name: '', role: 'fresher', github: '', linkedin: '', skills: '', projects: '', email: '', password: ''
   });
+
+  // App.js / skill.js ke top par states ke saath add karein
+    const [projectName, setProjectName] = useState('');
 
   const handlefindMatches = () => {
     findMatches(reqSkills, students, teamSize, setMatches, setTeamSynergy);
@@ -73,7 +76,7 @@ const handleRegister = async (e) => {
         }
     } catch (error) {
         console.error("Fetch Error:", error);
-        alert("Server connect nahi ho raha! Check kijiye ki backend chalu hai.");
+        alert("Unable to connect to the server. Please check if the backend is running");
     }
 };
 
@@ -92,11 +95,31 @@ const handleRegister = async (e) => {
     });
   };
 
-  const handleFinalize = () => {
-    if (selectedTeam.length === 0) return alert("Please select at least one member!");
-    localStorage.setItem('finalTeam', JSON.stringify(selectedTeam));
-    setView('finalTeamSummary');
-  };
+
+
+  const handleFinalize = async () => {
+  if (!projectName) return alert("Please enter a Project Name first!");
+  if (selectedTeam.length === 0) return alert("Please select at least one member!");
+
+  try {
+    const response = await fetch('http://localhost:5000/api/finalize-team', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        projectName: projectName,
+        guideName: stuData.name, // Login guide ka naam
+        selectedMembers: selectedTeam
+      })
+    });
+
+    if (response.ok) {
+      alert(`Success! Team for ${projectName} is locked and notified.`);
+      setView('home'); // Wapas home par bhejein
+    }
+  } catch (error) {
+    alert("Error finalizing team. Check backend.");
+  }
+};
 
   // --- Effects ---
   useEffect(() => {
@@ -171,7 +194,8 @@ const handleRegister = async (e) => {
                   <label className="block text-sm font-semibold text-slate-700 mb-2"  style={{padding:"10px 10px"}}>Email Address</label>
                   <input 
                     type="email" 
-                    placeholder="name@example.com" 
+                    placeholder="Enter your email" 
+                    autoComplete="off"
                     className="w-full border border-slate-200 p-3 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all shadow-sm" style={{padding:"5px"}}
                     onChange={(e) => setStuData({...stuData, email: e.target.value})} 
                     required 
@@ -181,14 +205,15 @@ const handleRegister = async (e) => {
                   <label className="block text-sm font-semibold text-slate-700 mb-2" style={{padding:"10px 10px"}}>Password</label>
                   <input 
                     type="password" 
-                    placeholder="••••••••" 
+                    placeholder="Enter your password" 
+                    autoComplete="new-password"
                     className="w-full border border-slate-200 p-3 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all shadow-sm" style={{paddingTop:"5px"}}
                     onChange={(e) => setStuData({...stuData, password: e.target.value})} 
                     required 
                   />
                 </div>
                 <br></br>
-                <button type="submit" className="w-full bg-blue-600 text-white py-3 rounded-xl font-bold text-lg hover:bg-blue-700 hover:shadow-lg transform transition-all active:scale-95">
+                <button type="submit" className="w-full  bg-blue-600 text-white py-3 rounded-xl font-bold text-lg hover:bg-blue-700 hover:shadow-lg transform transition-all active:scale-95">
                   Sign In
                 </button>
               </form>
@@ -235,7 +260,8 @@ const handleRegister = async (e) => {
               <li className="cursor-pointer hover:text-blue-600 transition-all" onClick={() => setView('home')}>Home</li>
               <li className="cursor-pointer hover:text-blue-600 transition-all" onClick={() => setView('student')}>Student View</li>
               <li className="cursor-pointer hover:text-blue-600 transition-all" onClick={() => setView('guide')}>Guide View</li>
-              
+              {/* <button onClick={() => setView('dashboard')}> My Profile </button> */}
+              <li className="cursor-pointer hover:text-blue-600 transition-all" onClick={() => setView('dashboard')}>My Profile</li>
               <button 
                 onClick={handleLoadData} 
                 className="bg-blue-100 text-blue-600 px-4 py-2 rounded-lg font-bold hover:bg-blue-200"
@@ -245,7 +271,7 @@ const handleRegister = async (e) => {
 
               <button 
                 onClick={() => setView('login')} 
-                className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg font-bold ml-2"
+                className=" text-black px-4 py-2 rounded-lg font-bold ml-2 cursor-pointer hover:text-blue-600 transition-all"
               >
                 Logout
               </button>
@@ -254,7 +280,17 @@ const handleRegister = async (e) => {
 
           <div className="content-area">
             {/* Saare Views ab Navbar ke niche render honge */}
-            <ViewHome view={view} setView={setView} jobsData={jobsData} />
+            <ViewHome view={view}
+             setView={setView}
+              jobsData={jobsData}
+              
+               />
+
+
+               <ViewDashboard view={view} 
+               stuData={stuData}
+                />
+
             
             <ViewStudent 
               view={view} 
@@ -273,6 +309,8 @@ const handleRegister = async (e) => {
               selectedTeam={selectedTeam} 
               toggleSelection={toggleSelection}
               onFinalize={handleFinalize}
+              projectName={projectName}     
+              setProjectName={setProjectName}
             />
 
             {view === 'finalTeamSummary' && (
@@ -313,7 +351,7 @@ const handleRegister = async (e) => {
             <p className="text-slate-600 leading-relaxed mb-6">
               {activeModal === 'resume' 
                 ? "Our AI scans your resume to pick up specific skills like Java, React, or even hobbies like Dance to match you with the best roles." 
-                : "We analyze every student's profile to form the top 5 most compatible teams, ensuring every project has a balanced mix of talent."}
+                : "We analyze every student's profile to help you choose as many top compatible team members as you want, ensuring every project has a balanced mix of talent."}
             </p>
             <div className="flex justify-center w-full mt-6  text-center">
             <button 

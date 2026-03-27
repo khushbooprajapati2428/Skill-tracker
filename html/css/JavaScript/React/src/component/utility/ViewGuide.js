@@ -8,7 +8,7 @@
 export default function ViewGuide({ 
   view, reqSkills, setReqSkills, teamSize, setTeamSize, 
   findMatches, matches, teamSynergy, StudentCard, onDownload, 
-  toggleSelection, selectedTeam, onFinalize // <--- toggleSelection aur onFinalize yahan add kiya
+  toggleSelection, selectedTeam, onFinalize,projectName, setProjectName // <--- toggleSelection aur onFinalize yahan add kiya
 }) {
 
   // Local toggleSelection function ko yahan se delete kar diya gaya hai ❌
@@ -26,6 +26,33 @@ export default function ViewGuide({
               value={reqSkills} 
               onChange={(e) => setReqSkills(e.target.value)} 
             />
+
+
+
+            {/* Project Name Input - Requirement 1 ke liye */}
+            <div style={{ marginBottom: '20px',paddingTop:'20px' }}>
+            <label style={{ display: 'block', marginBottom: '5px' }}>Project / Event Name:</label>
+            <input 
+             type="text" 
+             placeholder="e.g. Web Dev Team or  Annual Dance Group or " 
+             value={projectName} // Ye naya state hoga
+             onChange={(e) => setProjectName(e.target.value)} 
+             style={{ 
+             width: '100%', 
+             padding: '10px', 
+              borderRadius: '8px', 
+              // border: '1px solid #ccc' 
+             border: '1px solid #0369a1'
+          }} 
+
+          
+
+           />
+          </div>
+
+
+
+
 
             <div style={{ marginBottom: '15px', textAlign: 'center' }}>
               <label style={{ marginRight: '10px', fontWeight: 'bold' }}>Members Needed : </label>
