@@ -37,6 +37,9 @@ export default function ViewStudent({ view, stuData, setStuData, handleSubmit })
                                 </div>
                                 <div className="flex flex-col gap-1">
                                     <label className="text-xs font-bold text-slate-400 uppercase ml-1" style={{padding:"10px 20px"}}>Current Status</label>
+
+                                
+
                                     <select 
                                         value={stuData.role} 
                                         onChange={(e)=>setStuData({...stuData, role: e.target.value})}

@@ -16,6 +16,7 @@ import ViewStudent from './React/src/component/utility/ViewStudent';
 import EmailPass from './React/src/component/utility/EmailPass';
 import { handleRegister } from './React/src/component/utility/handleRegister';
 import ViewDashboard from './React/src/component/utility/ViewDashboard';
+import ViewGuideHistory from './React/src/component/utility/ViewGuideHistory';
 
 
 
@@ -37,10 +38,51 @@ const App = () => {
 
   // App.js / skill.js ke top par states ke saath add karein
     const [projectName, setProjectName] = useState('');
+    const [guideTeams, setGuideTeams] = useState([]);
+    
+   
+
+
+
+    // --- States ke niche aur handleRegister ke upar ---
+
+const handleLoadData = () => {
+    if (typeof loadSampleData === 'function') {
+        loadSampleData(setStudents);
+    } else {
+        console.warn("loadSampleData function define nahi hai!");
+    }
+};
 
   const handlefindMatches = () => {
     findMatches(reqSkills, students, teamSize, setMatches, setTeamSynergy);
   };
+
+// App.js mein handleRegister ke upar ise add karein
+const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+        const response = await fetch('http://localhost:5000/api/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: stuData.email, password: stuData.password })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            console.log("Login Response Data:", data); // Isse Console mein check karein
+            setStuData(data.user); // 🚀 Ye line aapka saara data (Name, Skills, GitHub) save karegi
+            setView('home'); // Login ke baad direct Home par bhejein
+            alert("Welcome back, " + data.user.name + "!");
+        } else {
+            alert("Login Failed: " + data.message);
+        }
+    } catch (error) {
+        alert("Server connection error!");
+    }
+};
+
 
 const handleRegister = async (e) => {
     e.preventDefault();
@@ -81,19 +123,21 @@ const handleRegister = async (e) => {
 };
 
 
-
-  const handleLoadData = () => loadSampleData(setStudents);
-
-  const toggleSelection = (student) => {
-    setSelectedTeam((prev) => {
-      const isSelected = prev.find(s => (s._id || s.id) === (student._id || student.id));
-      if (isSelected) {
-        return prev.filter(s => (s._id || s.id) !== (student._id || student.id));
-      } else {
-        return [...prev, student];
-      }
-    });
-  };
+  // App.js ke andar toggleSelection function ko replace karein
+const toggleSelection = (student) => {
+  setSelectedTeam((prev) => {
+    // 🚀 Strict Check: Sirf database ki _id match honi chahiye
+    const isSelected = prev.find(s => s._id === student._id);
+    
+    if (isSelected) {
+      // Deselect logic
+      return prev.filter(s => s._id !== student._id);
+    } else {
+      // Select logic (Purane selected members + naya student)
+      return [...prev, student];
+    }
+  });
+};
 
 
 
@@ -120,6 +164,21 @@ const handleRegister = async (e) => {
     alert("Error finalizing team. Check backend.");
   }
 };
+
+
+const fetchGuideHistory = async () => {
+  console.log("User Role is:", stuData?.role);
+    try {
+        const response = await fetch('http://localhost:5000/api/guide-teams');
+        const data = await response.json();
+        setGuideTeams(data);
+        setView('guideHistory'); // Component dikhane ke liye view change karein
+    } catch (error) {
+        console.error("Error fetching history:", error);
+    }
+};
+
+
 
   // --- Effects ---
   useEffect(() => {
@@ -189,7 +248,8 @@ const handleRegister = async (e) => {
                 <p className="text-slate-500 mt-2" style={{padding:"10px 10px"}}>Please enter your details to login.</p>
               </div>
 
-              <form onSubmit={(e) => EmailPass(e, stuData, setView)} className="space-y-5">
+              {/* <form onSubmit={(e) => EmailPass(e, stuData, setView)} className="space-y-5"> */}
+              <form onSubmit={handleLogin} className="space-y-5">
                 <div>
                   <label className="block text-sm font-semibold text-slate-700 mb-2"  style={{padding:"10px 10px"}}>Email Address</label>
                   <input 
@@ -260,8 +320,19 @@ const handleRegister = async (e) => {
               <li className="cursor-pointer hover:text-blue-600 transition-all" onClick={() => setView('home')}>Home</li>
               <li className="cursor-pointer hover:text-blue-600 transition-all" onClick={() => setView('student')}>Student View</li>
               <li className="cursor-pointer hover:text-blue-600 transition-all" onClick={() => setView('guide')}>Guide View</li>
-              {/* <button onClick={() => setView('dashboard')}> My Profile </button> */}
-              <li className="cursor-pointer hover:text-blue-600 transition-all" onClick={() => setView('dashboard')}>My Profile</li>
+              
+              <li 
+  className="cursor-pointer hover:text-blue-600 transition-all" 
+  onClick={() => {
+    if (stuData?.role === 'guide') {
+      fetchGuideHistory(); // Ye function history fetch karega aur setView('guideHistory') karega
+    } else {
+      setView('dashboard'); // Student ke liye normal dashboard
+    }
+  }}
+>
+  My Profile
+</li>
               <button 
                 onClick={handleLoadData} 
                 className="bg-blue-100 text-blue-600 px-4 py-2 rounded-lg font-bold hover:bg-blue-200"
@@ -312,6 +383,9 @@ const handleRegister = async (e) => {
               projectName={projectName}     
               setProjectName={setProjectName}
             />
+
+           {/* App.js ke return mein baaki views ke saath niche add karein */}
+            {view === 'guideHistory' && <ViewGuideHistory view={view} teams={guideTeams} />}
 
             {view === 'finalTeamSummary' && (
               <div className="final-summary text-center py-12">
