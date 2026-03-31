@@ -58,30 +58,41 @@ const handleLoadData = () => {
     findMatches(reqSkills, students, teamSize, setMatches, setTeamSynergy);
   };
 
-// App.js mein handleRegister ke upar ise add karein
+
+
 const handleLogin = async (e) => {
     e.preventDefault();
     try {
+        // 🚀 URL ko dhyan se dekho, koi extra space nahi hona chahiye
         const response = await fetch('http://localhost:5000/api/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email: stuData.email, password: stuData.password })
         });
 
+        // 💡 Ye check add karein taaki HTML/JSON ka pata chale
+        const contentType = response.headers.get("content-type");
+        if (!contentType || !contentType.includes("application/json")) {
+             const errorText = await response.text();
+             console.error("Backend ne JSON nahi, HTML bheja hai:", errorText);
+             throw new Error("Backend route missing (404) or Server Error");
+        }
+
         const data = await response.json();
 
         if (response.ok) {
-            console.log("Login Response Data:", data); // Isse Console mein check karein
-            setStuData(data.user); // 🚀 Ye line aapka saara data (Name, Skills, GitHub) save karegi
-            setView('home'); // Login ke baad direct Home par bhejein
+            setStuData(data.user); 
+            setView('home'); 
             alert("Welcome back, " + data.user.name + "!");
         } else {
             alert("Login Failed: " + data.message);
         }
     } catch (error) {
-        alert("Server connection error!");
+        console.error("Login Error Details:", error);
+        alert("Server connection error! Please check if the backend is running on port 5000.");
     }
 };
+
 
 
 const handleRegister = async (e) => {
@@ -163,6 +174,24 @@ const toggleSelection = (student) => {
   } catch (error) {
     alert("Error finalizing team. Check backend.");
   }
+};
+
+
+const handleDownload = () => {
+    if (selectedTeam.length === 0) return alert("Pehle members select karein!");
+
+    // Simple CSV logic
+    let csvData = "Name,Email,Role\n";
+    selectedTeam.forEach(user => {
+        csvData += `${user.name},${user.email},${user.role}\n`;
+    });
+
+    const blob = new Blob([csvData], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${projectName || 'Team'}_Selection.csv`;
+    a.click();
 };
 
 
@@ -372,17 +401,22 @@ const fetchGuideHistory = async () => {
 
             <ViewGuide 
               view={view}
-              reqSkills={reqSkills} setReqSkills={setReqSkills}
-              teamSize={teamSize} setTeamSize={setTeamSize}
-              findMatches={handlefindMatches} matches={matches}
-              teamSynergy={teamSynergy} StudentCard={StudentCard}
-              onDownload={() => {}} 
-              selectedTeam={selectedTeam} 
-              toggleSelection={toggleSelection}
-              onFinalize={handleFinalize}
-              projectName={projectName}     
-              setProjectName={setProjectName}
-            />
+              reqSkills={reqSkills} 
+               setReqSkills={setReqSkills}
+              teamSize={teamSize} 
+              setTeamSize={setTeamSize}
+               findMatches={handlefindMatches} 
+               matches={matches}
+               teamSynergy={teamSynergy} 
+               StudentCard={StudentCard}
+               selectedTeam={selectedTeam} 
+               toggleSelection={toggleSelection}
+               projectName={projectName}     
+               setProjectName={setProjectName}
+               // 🚀 Sirf ek baar sahi function ke saath:
+               onDownload={handleDownload}  
+               onFinalize={handleFinalize}  
+              />
 
            {/* App.js ke return mein baaki views ke saath niche add karein */}
             {view === 'guideHistory' && <ViewGuideHistory view={view} teams={guideTeams} />}

@@ -6,7 +6,7 @@
 import React from 'react';
 
 // Ek hi function rakhein aur props ko destructure karein
-const StudentCard = ({ student, searchArr = [] }) => {
+const StudentCard = ({ student,isSelected ,searchArr = [] }) => {
   return (
     <div className="student-card" style={{
         background: 'white', 
