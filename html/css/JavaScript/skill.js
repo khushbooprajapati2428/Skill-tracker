@@ -151,29 +151,41 @@ const toggleSelection = (student) => {
 };
 
 
+const handleFinalize = async () => {
+    // 1. Basic Validation
+    if (!projectName) return alert("Please enter a Project Name first!");
+    if (selectedTeam.length === 0) return alert("Please select at least one member!");
 
-  const handleFinalize = async () => {
-  if (!projectName) return alert("Please enter a Project Name first!");
-  if (selectedTeam.length === 0) return alert("Please select at least one member!");
+    console.log("Finalizing for:", projectName, "by Guide:", stuData.name);
 
-  try {
-    const response = await fetch('http://localhost:5000/api/finalize-team', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        projectName: projectName,
-        guideName: stuData.name, // Login guide ka naam
-        selectedMembers: selectedTeam
-      })
-    });
+    try {
+        const response = await fetch('http://localhost:5000/api/finalize-team', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                projectName: projectName,
+                guideName: stuData.name || "Guide",
+                guideId: stuData._id || "dummy-id", // Default agar name missing ho
+                selectedMembers: selectedTeam
+            })
+        });
 
-    if (response.ok) {
-      alert(`Success! Team for ${projectName} is locked and notified.`);
-      setView('home'); // Wapas home par bhejein
+        const result = await response.json();
+
+        if (response.ok) {
+            alert("🚀 Success: Team Finalized and Notified!");
+            // Data reset taaki dubara galti na ho
+            setSelectedTeam([]);
+            setProjectName('');
+            setView('home'); 
+        } else {
+            // Backend se error aaye toh ye alert dikhega
+            alert("Backend Error: " + (result.error || "Something went wrong"));
+        }
+    } catch (error) {
+        console.error("Finalize Fetch Error:", error);
+        alert("Server se connect nahi ho paya. Check karo backend terminal chalu hai na?");
     }
-  } catch (error) {
-    alert("Error finalizing team. Check backend.");
-  }
 };
 
 
