@@ -23,7 +23,7 @@ export default function ViewStudent({ view, stuData, setStuData, handleSubmit })
                         <form onSubmit={handleSubmit} className="space-y-4">
                             
                             {/* Row 1: Name & Status */}
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4" >
+                            {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-4" >
                                 <div className="flex flex-col gap-1">
                                     <label className="text-xs font-bold text-slate-400 uppercase ml-1" style={{padding:"10px 20px"}}>Full Name</label>
                                     <input 
@@ -49,7 +49,43 @@ export default function ViewStudent({ view, stuData, setStuData, handleSubmit })
                                         <option value="experienced">💼 Experienced</option>
                                     </select>
                                 </div>
-                            </div>
+                            </div> */}
+                            {/* Row 1: Name & Status (Join As) */}
+<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div className="flex flex-col gap-1">
+        <label className="text-xs font-bold text-slate-400 uppercase ml-1" style={{padding:"10px 20px"}}>Full Name</label>
+        <input 
+            type="text" 
+            className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-100 outline-none text-sm transition-all"
+            placeholder="Ex: Enter your name" 
+            style={{padding:"8px 20px"}}
+            value={stuData.name} 
+            onChange={(e)=>setStuData({...stuData, name: e.target.value})} 
+            required 
+        />
+    </div>
+
+    {/* 🚀 Naya SMART Dropdown yahan paste karein */}
+    <div className="flex flex-col gap-1">
+        <label className="text-xs font-bold text-slate-400 uppercase ml-1" style={{padding:"10px 20px"}}>Join As (Role)</label>
+        <select 
+            value={stuData.role} 
+            onChange={(e)=>setStuData({...stuData, role: e.target.value})}
+            className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2 text-sm outline-none cursor-pointer shadow-sm" 
+            style={{padding:"8px 20px"}}
+            required
+        >
+            <option value="">-- Choose Your Role --</option>
+            {/* 🎓 Students Category */}
+            <option value="fresher">🎓 Student (Fresher)</option>
+            <option value="student_exp">💼 Student (Experienced)</option>
+            
+            {/* 👨‍🏫 Guides Category */}
+            <option value="guide">👨‍🏫 Guide (Teacher/Mentor)</option>
+            <option value="guide_exp">🚀 Professional Guide (Expert)</option>
+        </select>
+    </div>
+</div>
 
                             {/* Row 2: Email & Password (Only for Registration) */}
                             {view === 'registration' && (

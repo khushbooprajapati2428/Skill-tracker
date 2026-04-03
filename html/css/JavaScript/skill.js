@@ -17,6 +17,7 @@ import EmailPass from './React/src/component/utility/EmailPass';
 import { handleRegister } from './React/src/component/utility/handleRegister';
 import ViewDashboard from './React/src/component/utility/ViewDashboard';
 import ViewGuideHistory from './React/src/component/utility/ViewGuideHistory';
+import GuideHistory from './React/src/component/utility/GuideHistory';
 
 
 
@@ -39,6 +40,7 @@ const App = () => {
   // App.js / skill.js ke top par states ke saath add karein
     const [projectName, setProjectName] = useState('');
     const [guideTeams, setGuideTeams] = useState([]);
+    const [guideHistory, setGuideHistory] = useState([]);
     
    
 
@@ -177,7 +179,7 @@ const handleFinalize = async () => {
             // Data reset taaki dubara galti na ho
             setSelectedTeam([]);
             setProjectName('');
-            setView('home'); 
+            // setView('home'); 
         } else {
             // Backend se error aaye toh ye alert dikhega
             alert("Backend Error: " + (result.error || "Something went wrong"));
@@ -207,21 +209,53 @@ const handleDownload = () => {
 };
 
 
+// const fetchGuideHistory = async () => {
+//   console.log("User Role is:", stuData?.role);
+//     try {
+//         const response = await fetch('http://localhost:5000/api/guide-teams');
+//         const data = await response.json();
+//         setGuideTeams(data);
+//         setView('guideHistory'); // Component dikhane ke liye view change karein
+//     } catch (error) {
+//         console.error("Error fetching history:", error);
+//     }
+// };
+
 const fetchGuideHistory = async () => {
-  console.log("User Role is:", stuData?.role);
+    // 🔍 Doraemon Check: Pehle dekhte hain ID mil rahi hai ya nahi
+    console.log("Fetching history for ID:", stuData?._id);
+
+    if (!stuData?._id) {
+        console.error("❌ Error: Guide ID missing! Login check karein.");
+        return;
+    }
+
     try {
-        const response = await fetch('http://localhost:5000/api/guide-teams');
+        // 🚀 SMART URL: Sirf is guide ka data mangwao
+        const response = await fetch(`http://localhost:5000/api/guide-teams/${stuData._id}`);
+        
+        if (!response.ok) {
+            throw new Error(`Server Error: ${response.status}`);
+        }
+
         const data = await response.json();
-        setGuideTeams(data);
-        setView('guideHistory'); // Component dikhane ke liye view change karein
+        
+        // 📦 Data set karo aur screen badlo
+        setGuideHistory(data); 
+        setView('guideHistory'); 
+        
+        console.log("✅ History Loaded Successfully!", data);
+        
     } catch (error) {
-        console.error("Error fetching history:", error);
+        console.log("❌ Fetching history failed, Khushboo!");
+        console.log("Reason:", error.message);
+        setGuideTeams([]); // Crash hone se bachane ke liye empty array
     }
 };
 
 
 
-  // --- Effects ---
+  // // --- Effects ---
   useEffect(() => {
     const getAllStudents = async () => {
         const localDummy = JSON.parse(localStorage.getItem('students')) || [];
@@ -239,6 +273,7 @@ const fetchGuideHistory = async () => {
     };
     getAllStudents();
   }, []);
+
 
  
   return (
@@ -374,6 +409,18 @@ const fetchGuideHistory = async () => {
 >
   My Profile
 </li>
+{stuData?.role === 'guide' && (
+  <li 
+    className="cursor-pointer hover:text-blue-600 font-medium transition-all duration-300" 
+    onClick={async () => {
+      // 🚀 Doraemon Power: History fetch karo aur screen switch karo
+      await fetchGuideHistory(); 
+      setView('guideHistory'); 
+    }}
+  >
+    History
+  </li>
+)}
               <button 
                 onClick={handleLoadData} 
                 className="bg-blue-100 text-blue-600 px-4 py-2 rounded-lg font-bold hover:bg-blue-200"
@@ -430,8 +477,12 @@ const fetchGuideHistory = async () => {
                onFinalize={handleFinalize}  
               />
 
-           {/* App.js ke return mein baaki views ke saath niche add karein */}
-            {view === 'guideHistory' && <ViewGuideHistory view={view} teams={guideTeams} />}
+             {view === 'guideHistory' && (
+    <GuideHistory 
+        teams={guideHistory} 
+        guideData={stuData} 
+    />
+)}
 
             {view === 'finalTeamSummary' && (
               <div className="final-summary text-center py-12">

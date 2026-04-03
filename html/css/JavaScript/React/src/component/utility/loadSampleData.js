@@ -31,7 +31,7 @@ export default function loadSampleData(setStudents){
   { _id:"stu24", name: "Aarti Pandey", email: "aarti@gmail.com", password: "hashed_123", role: "student", skills: ["HTML", "Bootstrap"], projects: "College Website" },
   { _id:"stu25", name: "Gaurav Saxena", email: "gaurav@gmail.com", password: "hashed_123", role: "student", skills: ["React", "Node"], projects: "Realtime Chat" },
   { _id:"stu26", name: "Ishita Roy", email: "ishita@gmail.com", password: "hashed_123", role: "student", skills: ["Python", "Data Science"], projects: "Stock Predictor" },
-  { _id:"stu27", name: "Harsh Vardhan", email: "harsh@gmail.com", password: "hashed_123", role: "student", skills: ["Java", "Hibernate"], projects: "CRM Tool" },
+  { _id:"stu27", name: "Harsh Vardhan", email: "harsh@gmail.com", password: "hashed_123", role: "student", skills: ["Java", "Data Science"], projects: "CRM Tool" },
   { _id:"stu28", name: "Payal Agarwal", email: "payal@gmail.com", password: "hashed_123", role: "student", skills: ["Figma", "UI"], projects: "Food UI Kit" },
   { _id:"stu29", name: "Aditya Shetty", email: "aditya@gmail.com", password: "hashed_123", role: "student", skills: ["Node", "Redis"], projects: "Cache System" },
   { _id:"stu30", name: "Komal Rathi", email: "komal@gmail.com", password: "hashed_123", role: "student", skills: ["React", "Next.js"], projects: "SSR Blog" },

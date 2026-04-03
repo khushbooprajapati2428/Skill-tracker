@@ -89,7 +89,7 @@ export default function ViewDashboard({ view, stuData }) {
               Congratulations! You have been selected for <strong>{note.projectName}</strong> project by <strong>{note.guideName}</strong>.
             </p>
             <span className="text-xs text-sky-600 mt-2 block italic">
-              {note.date ? new Date(note.date).toLocaleDateString() : "Just now"}
+              {note.date ? new Date(note.date).toLocaleDateString('en-GB') : "Just now"}
             </span>
           </div>
         ))

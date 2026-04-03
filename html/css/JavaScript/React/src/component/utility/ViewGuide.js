@@ -115,42 +115,13 @@ export default function ViewGuide({
 
             {/* ViewGuide.js - Result Cards Section */}
       <div style={{ marginTop: '40px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '25px', width: '100%', maxWidth: '1200px' }}>
-      {/* {matches.map((m) => {
-       // 1. Unique ID database se
-       const studentId = m._id; 
-    
-       // 2. Selection Check (Strict ID based)
-        const isSelected = selectedTeam.some(s => s._id === studentId);
+  
 
-        return (
-        <div 
-              key={studentId} // 🚀 Unique Key
-              onClick={() => toggleSelection(m)} 
-              style={{ 
-               cursor: 'pointer',
-               borderRadius: '20px',
-               transition: '0.3s all ease',
-               // Border sirf tabhi dikhegi jab ID match hogi
-               border: isSelected ? '4px solid #007bff' : '4px solid transparent', 
-               backgroundColor: isSelected ? 'rgba(0, 123, 255, 0.05)' : 'white',
-              transform: isSelected ? 'scale(1.02)' : 'scale(1)', 
-              boxShadow: isSelected ? '0 10px 20px rgba(0,123,255,0.15)' : '0 4px 10px rgba(0,0,0,0.05)'
-        }}
-      >
-        <StudentCard 
-          student={m} 
-          isSelected={isSelected} 
-          searchArr={reqSkills.split(',').map(s => s.trim().toLowerCase())}
-        />
-      </div>
-    );
-  })} */}
+            {matches.map((m, index) => {
+             // 🚀 FIX: Agar _id missing hai toh index use karo, par unique hona chahiye
+           const studentId = m._id || m.id || `student-key-${index}`; 
 
-{matches.map((m, index) => {
-    // 🚀 FIX: Agar _id missing hai toh index use karo, par unique hona chahiye
-    const studentId = m._id || m.id || `student-key-${index}`; 
-
-    const isSelected = selectedTeam.some(s => (s._id || s.id) === (m._id || m.id));
+          const isSelected = selectedTeam.some(s => (s._id || s.id) === (m._id || m.id));
 
     return (
       <div 
