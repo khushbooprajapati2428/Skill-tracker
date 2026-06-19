@@ -111,6 +111,7 @@ export default function ViewDashboard({ view, stuData }) {
           </div>
         </div>
       </div>
+      {/* //notication wala */}
 
       <div className="mt-8 w-full max-w-3xl">
         <h3 className="text-lg font-bold text-slate-700 mb-4 flex items-center gap-2 border-b pb-2">

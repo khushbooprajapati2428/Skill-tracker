@@ -1,13 +1,6 @@
 
 
 
-
-
-
-
-
-
-
 export default function ViewHome({ view, setView, jobsData }) {
   if (view !== 'home') return null;
 
