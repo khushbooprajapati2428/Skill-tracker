@@ -1,12 +1,10 @@
 
 
 
-
-
 import React from 'react';
 
 // Ek hi function rakhein aur props ko destructure karein
-const StudentCard = ({ student,isSelected ,searchArr = [] }) => {
+const StudentCard = ({ student,isSelected ,searchArr = [],onConnect }) => {
   return (
     <div className="student-card" style={{
         background: 'white', 
@@ -60,6 +58,25 @@ const StudentCard = ({ student,isSelected ,searchArr = [] }) => {
       <div style={{display: 'flex', gap: '20px', marginTop: '15px', borderTop: '1px solid #eee', paddingTop: '15px'}}>
         <a href={student.github} target="_blank" rel="noreferrer"  onClick={(e) => e.stopPropagation()}     style={{textDecoration: 'none', color: '#333', fontSize: '0.85rem', fontWeight: 'bold'}}>GitHub ↗</a>
         <a href={student.linkedin} target="_blank" rel="noreferrer"   onClick={(e) => e.stopPropagation()}      style={{textDecoration: 'none', color: '#007bff', fontSize: '0.85rem', fontWeight: 'bold'}}>LinkedIn ↗</a>
+        <button 
+  onClick={(e) => {
+    e.stopPropagation(); 
+    if(onConnect) onConnect(); // 👈 Check if function exists
+  }}
+  style={{
+    background: '#007bff',
+    color: 'white',
+    border: 'none',
+    padding: '8px 15px',
+    borderRadius: '20px',
+    fontSize: '0.8rem',
+    fontWeight: 'bold',
+    cursor: 'pointer',
+    zIndex: 10 // 👈 Ye ensure karega ki button upar dikhe
+  }}
+>
+  + Join Request
+</button>
       </div>
     </div>
   );

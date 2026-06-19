@@ -3,6 +3,16 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
 import findMatches from './React/src/component/utility/findMatches';
@@ -18,6 +28,8 @@ import { handleRegister } from './React/src/component/utility/handleRegister';
 import ViewDashboard from './React/src/component/utility/ViewDashboard';
 import ViewGuideHistory from './React/src/component/utility/ViewGuideHistory';
 import GuideHistory from './React/src/component/utility/GuideHistory';
+import MessageModal from './React/src/component/utility/MessageModal';
+import ViewSkillMarket from './React/src/component/utility/ViewSkillMarket';
 
 
 
@@ -41,6 +53,9 @@ const App = () => {
     const [projectName, setProjectName] = useState('');
     const [guideTeams, setGuideTeams] = useState([]);
     const [guideHistory, setGuideHistory] = useState([]);
+    // App.js ke states section mein:
+    const [isMessageModalOpen, setIsMessageModalOpen] = useState(false);
+    const [selectedStudentForMessage, setSelectedStudentForMessage] = useState(null);
     
    
 
@@ -97,44 +112,94 @@ const handleLogin = async (e) => {
 
 
 
+
+
 const handleRegister = async (e) => {
     e.preventDefault();
     
-    // Skills ko string se array mein convert karein taaki MongoDB accept kare
+    // 🚀 Formatting: String ko Array mein badalna zaroori hai
     const formattedData = {
         ...stuData,
         skills: typeof stuData.skills === 'string' 
                 ? stuData.skills.split(',').map(s => s.trim()) 
-                : stuData.skills
+                : stuData.skills,
+
+        skillsToLearn: typeof stuData.skillsToLearn === 'string' 
+                ? stuData.skillsToLearn.split(',').map(s => s.trim()) 
+                : stuData.skillsToLearn,
+
+        skillsToTeach: typeof stuData.skillsToTeach === 'string' 
+                ? stuData.skillsToTeach.split(',').map(s => s.trim()) 
+                : stuData.skillsToTeach
     };
 
     try {
         const response = await fetch('http://localhost:5000/api/register', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(formattedData) // formattedData bhejien
+            body: JSON.stringify(formattedData)
         });
 
         const result = await response.json();
 
         if (response.ok) {
             alert("Success: " + result.message);
-            // Form Reset
+            
+            // ✨ Doraemon Magic: Saare fields reset karo (including new ones)
             setStuData({ 
                 name: '', role: 'fresher', github: '', linkedin: '', 
-                skills: '', projects: '', email: '', password: '' 
+                skills: '', projects: '', email: '', password: '',
+                skillsToLearn: '', skillsToTeach: '' // 👈 Ye add kiya maine
             });
-            setView('login'); // Registration ke baad login par bhejein
+            
+            setView('login');
         } else {
-            // Agar backend se error aaye (jaise duplicate email) toh wo yahan dikhega
             alert("Error: " + (result.error || "Registration failed."));
         }
     } catch (error) {
         console.error("Fetch Error:", error);
-        alert("Unable to connect to the server. Please check if the backend is running");
+        alert("Unable to connect to the server.");
     }
 };
 
+
+// 🚀 Naya Logic: Profile Update karne ke liye (Skill Market ke liye zaroori)
+const handleUpdateProfile = async (e) => {
+    e.preventDefault();
+    
+    // 🔍 Doraemon Check: ID hai ya nahi
+    if (!stuData._id) return alert("Error: User ID not found. Please login again.");
+
+    try {
+        const response = await fetch(`http://localhost:5000/api/update-skill-market/${stuData._id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                // Hum backend ko saara data bhej rahe hain, including naye fields
+                skillsToLearn: stuData.skillsToLearn,
+                skillsToTeach: stuData.skillsToTeach,
+                name: stuData.name,
+                skills: stuData.skills,
+                projects: stuData.projects,
+                github: stuData.github,
+                linkedin: stuData.linkedin
+            })
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+            alert("✨ Profile Updated Successfully!");
+            // 📦 Updated data ko state mein set karo
+            setStuData(result.updatedStudent);
+        } else {
+            alert("Update Failed: " + result.error);
+        }
+    } catch (error) {
+        console.error("Update Error:", error);
+        alert("Server connection error!");
+    }
+};
 
   // App.js ke andar toggleSelection function ko replace karein
 const toggleSelection = (student) => {
@@ -190,6 +255,41 @@ const handleFinalize = async () => {
     }
 };
 
+// 🚀 Naya Request Logic (Copy & Paste)
+const handleSendJoinRequest = async (message) => {
+    try {
+        const response = await fetch('http://localhost:5000/api/send-request', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                studentId: selectedStudentForMessage._id,
+                guideId: stuData._id,
+                guideName: stuData.name,
+                message: message
+            })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            alert("🚀 Invitation Sent! Student will be notified.");
+            setIsMessageModalOpen(false); // Modal close karo
+        } else {
+            alert("Error: " + data.error);
+        }
+    } catch (error) {
+        console.error("Request Error:", error);
+        alert("Server error while sending request.");
+    }
+};
+
+// Ye function Modal ko open karega
+const openConnectModal = (student) => {
+    setSelectedStudentForMessage(student);
+    setIsMessageModalOpen(true);
+};
+
+
 
 const handleDownload = () => {
     if (selectedTeam.length === 0) return alert("Pehle members select karein!");
@@ -209,17 +309,6 @@ const handleDownload = () => {
 };
 
 
-// const fetchGuideHistory = async () => {
-//   console.log("User Role is:", stuData?.role);
-//     try {
-//         const response = await fetch('http://localhost:5000/api/guide-teams');
-//         const data = await response.json();
-//         setGuideTeams(data);
-//         setView('guideHistory'); // Component dikhane ke liye view change karein
-//     } catch (error) {
-//         console.error("Error fetching history:", error);
-//     }
-// };
 
 const fetchGuideHistory = async () => {
     // 🔍 Doraemon Check: Pehle dekhte hain ID mil rahi hai ya nahi
@@ -247,9 +336,40 @@ const fetchGuideHistory = async () => {
         console.log("✅ History Loaded Successfully!", data);
         
     } catch (error) {
-        console.log("❌ Fetching history failed, Khushboo!");
+        console.log("❌ Fetching history failed");
         console.log("Reason:", error.message);
         setGuideTeams([]); // Crash hone se bachane ke liye empty array
+    }
+};
+
+
+
+
+
+
+
+
+const handleSkillMarketConnect = async (mentor) => {
+    try {
+        const response = await fetch('http://localhost:5000/api/send-request', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                studentId: mentor._id, // Jisko seekhna hai (Nandini/Ajay)
+                guideId: stuData._id,   // Jo request bhej raha hai
+                guideName: stuData.name,
+                message: `Hey, I want to learn ${mentor.skillsToTeach} from you! Can we connect?`
+            })
+        });
+
+        if (response.ok) {
+            alert(`🚀 Request sent to ${mentor.name}! Check back later for their response.`);
+        } else {
+            alert("Failed to send request.");
+        }
+    } catch (error) {
+        console.error("Connect Error:", error);
+        alert("Server error!");
     }
 };
 
@@ -397,19 +517,31 @@ const fetchGuideHistory = async () => {
               <li className="cursor-pointer hover:text-blue-600 transition-all" onClick={() => setView('student')}>Student View</li>
               <li className="cursor-pointer hover:text-blue-600 transition-all" onClick={() => setView('guide')}>Guide View</li>
               
-              <li 
+<li 
   className="cursor-pointer hover:text-blue-600 transition-all" 
-  onClick={() => {
-    if (stuData?.role === 'guide') {
-      fetchGuideHistory(); // Ye function history fetch karega aur setView('guideHistory') karega
-    } else {
-      setView('dashboard'); // Student ke liye normal dashboard
-    }
-  }}
+  onClick={() => setView('dashboard')} 
 >
   My Profile
 </li>
-{stuData?.role === 'guide' && (
+
+<li className="cursor-pointer hover:text-blue-600 transition-all" 
+    onClick={() => setView('skillMarket')}>
+    Skill Market 
+</li>
+
+{/* {stuData?.role === 'guide' && (
+  <li 
+    className="cursor-pointer hover:text-blue-600 font-medium transition-all duration-300" 
+    onClick={async () => {
+      // 🚀 Doraemon Power: History fetch karo aur screen switch karo
+      await fetchGuideHistory(); 
+      setView('guideHistory'); 
+    }}
+  >
+    History
+  </li>
+)} */}
+{(stuData?.role === 'guide' || stuData?.role === 'guide_exp') && (
   <li 
     className="cursor-pointer hover:text-blue-600 font-medium transition-all duration-300" 
     onClick={async () => {
@@ -452,11 +584,12 @@ const fetchGuideHistory = async () => {
 
             
             <ViewStudent 
-              view={view} 
-              stuData={stuData} 
-              setStuData={setStuData} 
-              handleSubmit={handleRegister} 
-            />
+                  view={view} 
+                  stuData={stuData} 
+                  setStuData={setStuData} 
+            // 🚀 Ek hi handleSubmit prop mein condition daal do
+                   handleSubmit={view === 'registration' ? handleRegister : handleUpdateProfile} 
+                />
 
             <ViewGuide 
               view={view}
@@ -474,15 +607,23 @@ const fetchGuideHistory = async () => {
                setProjectName={setProjectName}
                // 🚀 Sirf ek baar sahi function ke saath:
                onDownload={handleDownload}  
-               onFinalize={handleFinalize}  
-              />
+               onFinalize={handleFinalize} 
+               // 🚀 Naya Request Logic (Copy & Paste)
+               onConnectClick={openConnectModal}
 
-             {view === 'guideHistory' && (
+              />
+{view === 'guideHistory' && (
     <GuideHistory 
         teams={guideHistory} 
         guideData={stuData} 
     />
 )}
+
+
+<ViewSkillMarket view={view} stuData={stuData}
+onConnectClick={handleSkillMarketConnect} />
+
+
 
             {view === 'finalTeamSummary' && (
               <div className="final-summary text-center py-12">
@@ -535,9 +676,19 @@ const fetchGuideHistory = async () => {
         </div>
       )}
 
+      {/* App.js ke end mein main div se pehle */}
+<MessageModal 
+    isOpen={isMessageModalOpen}
+    onClose={() => setIsMessageModalOpen(false)}
+    studentName={selectedStudentForMessage?.name}
+    onSend={handleSendJoinRequest}
+/>
+
     </div> // Main container ka aakhri closing div
   );
 };
+
+
 
 // React DOM Mounting
 const rootElement = document.getElementById('root');
@@ -549,8 +700,3 @@ if (rootElement) {
 
 
 
-
-
-
-
-      

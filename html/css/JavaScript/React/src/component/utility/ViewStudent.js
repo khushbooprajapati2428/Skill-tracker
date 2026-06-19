@@ -3,6 +3,8 @@
 
 
 
+
+
 export default function ViewStudent({ view, stuData, setStuData, handleSubmit }){
 
     if (view !== 'student' && view !== 'registration') return null;
@@ -16,97 +18,67 @@ export default function ViewStudent({ view, stuData, setStuData, handleSubmit })
                         <h2 className="text-xl font-bold text-slate-700" style={{paddingTop:"30px"}}>
                             {view === 'registration' ? '🚀 Create Your Profile' : '✨ Edit Your Profile'}
                         </h2>
-                        <p className="text-slate-500 text-sm"  style={{paddingTop:"20px"}}>Update your information to stay relevant.</p>
+                        <p className="text-slate-500 text-sm" style={{paddingTop:"20px"}}>Update your information to stay relevant.</p>
                     </div>
                     
                     <div className="bg-white rounded-2xl p-6 shadow-xl border border-slate-100">
                         <form onSubmit={handleSubmit} className="space-y-4">
                             
-                            {/* Row 1: Name & Status */}
-                            {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-4" >
+                            {/* Row 1: Name & Role */}
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div className="flex flex-col gap-1">
                                     <label className="text-xs font-bold text-slate-400 uppercase ml-1" style={{padding:"10px 20px"}}>Full Name</label>
                                     <input 
                                         type="text" 
                                         className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-100 outline-none text-sm transition-all"
-                                        placeholder="Ex: Enter your name" style={{padding:"8px 20px"}}
+                                        placeholder="Ex: Enter your name" 
+                                        style={{padding:"8px 20px"}}
                                         value={stuData.name} 
                                         onChange={(e)=>setStuData({...stuData, name: e.target.value})} 
                                         required 
                                     />
                                 </div>
+
                                 <div className="flex flex-col gap-1">
-                                    <label className="text-xs font-bold text-slate-400 uppercase ml-1" style={{padding:"10px 20px"}}>Current Status</label>
-
-                                
-
+                                    <label className="text-xs font-bold text-slate-400 uppercase ml-1" style={{padding:"10px 20px"}}>Join As (Role)</label>
                                     <select 
                                         value={stuData.role} 
                                         onChange={(e)=>setStuData({...stuData, role: e.target.value})}
-                                        className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2 text-sm outline-none cursor-pointer" style={{padding:"8px 20px"}}
+                                        className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2 text-sm outline-none cursor-pointer shadow-sm" 
+                                        style={{padding:"8px 20px"}}
+                                        required
                                     >
-                                        <option value="fresher">🎓 Fresher</option>
-                                        <option value="experienced">💼 Experienced</option>
+                                        <option value="">-- Choose Your Role --</option>
+                                        <option value="fresher">🎓 Student (Fresher)</option>
+                                        <option value="student_exp">💼 Student (Experienced)</option>
+                                        <option value="guide">👨‍🏫 Guide (Teacher/Mentor)</option>
+                                        <option value="guide_exp">🚀 Professional Guide (Expert)</option>
                                     </select>
                                 </div>
-                            </div> */}
-                            {/* Row 1: Name & Status (Join As) */}
-<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-    <div className="flex flex-col gap-1">
-        <label className="text-xs font-bold text-slate-400 uppercase ml-1" style={{padding:"10px 20px"}}>Full Name</label>
-        <input 
-            type="text" 
-            className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-100 outline-none text-sm transition-all"
-            placeholder="Ex: Enter your name" 
-            style={{padding:"8px 20px"}}
-            value={stuData.name} 
-            onChange={(e)=>setStuData({...stuData, name: e.target.value})} 
-            required 
-        />
-    </div>
-
-    {/* 🚀 Naya SMART Dropdown yahan paste karein */}
-    <div className="flex flex-col gap-1">
-        <label className="text-xs font-bold text-slate-400 uppercase ml-1" style={{padding:"10px 20px"}}>Join As (Role)</label>
-        <select 
-            value={stuData.role} 
-            onChange={(e)=>setStuData({...stuData, role: e.target.value})}
-            className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2 text-sm outline-none cursor-pointer shadow-sm" 
-            style={{padding:"8px 20px"}}
-            required
-        >
-            <option value="">-- Choose Your Role --</option>
-            {/* 🎓 Students Category */}
-            <option value="fresher">🎓 Student (Fresher)</option>
-            <option value="student_exp">💼 Student (Experienced)</option>
-            
-            {/* 👨‍🏫 Guides Category */}
-            <option value="guide">👨‍🏫 Guide (Teacher/Mentor)</option>
-            <option value="guide_exp">🚀 Professional Guide (Expert)</option>
-        </select>
-    </div>
-</div>
+                            </div>
 
                             {/* Row 2: Email & Password (Only for Registration) */}
                             {view === 'registration' && (
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div className="flex flex-col gap-1">
-                                        <label className="text-xs font-bold text-slate-400 uppercase ml-1" style={{paddingTop:"30px"}}>Email Address</label>
+                                        <label className="text-xs font-bold text-slate-400 uppercase ml-1" style={{paddingTop:"10px", paddingLeft:"20px"}}>Email Address</label>
                                         <input 
                                             type="email" 
                                             className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2 text-sm"
                                             placeholder="email@example.com"
+                                            style={{margin:"5px 20px", width:"90%"}}
                                             value={stuData.email} 
                                             onChange={(e)=>setStuData({...stuData, email: e.target.value})} 
                                             required 
                                         />
                                     </div>
                                     <div className="flex flex-col gap-1">
-                                        <label className="text-xs font-bold text-slate-400 uppercase ml-1" style={{paddingTop:"30px"}}>Set Password</label>
+                                        <label className="text-xs font-bold text-slate-400 uppercase ml-1" style={{paddingTop:"10px", paddingLeft:"20px"}}>Set Password</label>
                                         <input 
                                             type="password" 
                                             className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2 text-sm"
                                             placeholder="••••••••"
+                                            style={{margin:"5px 20px", width:"90%"}}
                                             value={stuData.password} 
                                             onChange={(e)=>setStuData({...stuData, password: e.target.value})} 
                                             required 
@@ -115,23 +87,23 @@ export default function ViewStudent({ view, stuData, setStuData, handleSubmit })
                                 </div>
                             )}
 
-                            {/* Row 3: URLs */}
+                            {/* Row 3: URLs (GitHub & LinkedIn) */}
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div className="flex flex-col gap-1">
-                                    <label className="text-xs font-bold text-slate-400 uppercase ml-1"  style={{padding:"10px 20px"}}>GitHub URL</label>
+                                    <label className="text-xs font-bold text-slate-400 uppercase ml-1" style={{padding:"10px 20px"}}>GitHub URL</label>
                                     <input 
                                         type="url" 
-                                        className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2 text-sm"  style={{padding:"8px 20px"}}
+                                        className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2 text-sm" style={{padding:"8px 20px"}}
                                         placeholder="https://github.com/..." 
                                         value={stuData.github} 
                                         onChange={(e)=>setStuData({...stuData, github: e.target.value})} 
                                     />
                                 </div>
                                 <div className="flex flex-col gap-1">
-                                    <label className="text-xs font-bold text-slate-400 uppercase ml-1"  style={{padding:"10px 20px"}}>LinkedIn URL</label>
+                                    <label className="text-xs font-bold text-slate-400 uppercase ml-1" style={{padding:"10px 20px"}}>LinkedIn URL</label>
                                     <input 
                                         type="url" 
-                                        className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2 text-sm"  style={{padding:"8px 20px"}}
+                                        className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2 text-sm" style={{padding:"8px 20px"}}
                                         placeholder="https://linkedin.com/in/..." 
                                         value={stuData.linkedin} 
                                         onChange={(e)=>setStuData({...stuData, linkedin: e.target.value})} 
@@ -139,12 +111,12 @@ export default function ViewStudent({ view, stuData, setStuData, handleSubmit })
                                 </div>
                             </div>
 
-                            {/* Skills */}
+                            {/* Skills Section */}
                             <div className="flex flex-col gap-1">
-                                <label className="text-xs font-bold text-slate-400 uppercase ml-1"  style={{padding:"10px 20px"}}>Skills (Comma Separated)</label>
+                                <label className="text-xs font-bold text-slate-400 uppercase ml-1" style={{padding:"10px 20px"}}>Primary Skills (For Matching)</label>
                                 <input 
                                     type="text" 
-                                    className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2 text-sm"  style={{padding:"8px 20px"}}
+                                    className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2 text-sm" style={{padding:"8px 20px"}}
                                     placeholder="React, Node.js, Tailwind..." 
                                     value={stuData.skills} 
                                     onChange={(e)=>setStuData({...stuData, skills: e.target.value})} 
@@ -152,13 +124,37 @@ export default function ViewStudent({ view, stuData, setStuData, handleSubmit })
                                 />
                             </div>
 
-                            {/* Projects */}
+                            {/* 🎯 NEW: Peer-to-Peer Skill Market Section */}
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-indigo-50/50 p-4 rounded-xl border border-indigo-100">
+                                <div className="flex flex-col gap-1">
+                                    <label className="text-xs font-bold text-indigo-600 uppercase ml-1">🎯 Skills I Want to Learn</label>
+                                    <input 
+                                        type="text" 
+                                        className="w-full bg-white border border-indigo-200 rounded-lg px-4 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-200"
+                                        placeholder="Ex: Python, AWS" 
+                                        value={stuData.skillsToLearn || ""} 
+                                        onChange={(e)=>setStuData({...stuData, skillsToLearn: e.target.value})} 
+                                    />
+                                </div>
+                                <div className="flex flex-col gap-1">
+                                    <label className="text-xs font-bold text-indigo-600 uppercase ml-1">🤝 Skills I Can Teach</label>
+                                    <input 
+                                        type="text" 
+                                        className="w-full bg-white border border-indigo-200 rounded-lg px-4 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-200"
+                                        placeholder="Ex: React, Java" 
+                                        value={stuData.skillsToTeach || ""} 
+                                        onChange={(e)=>setStuData({...stuData, skillsToTeach: e.target.value})} 
+                                    />
+                                </div>
+                            </div>
+
+                            {/* Major Projects */}
                             <div className="flex flex-col gap-1">
-                                <label className="text-xs font-bold text-slate-400 uppercase ml-1"  style={{padding:"10px 20px"}}>Major Projects</label>
+                                <label className="text-xs font-bold text-slate-400 uppercase ml-1" style={{padding:"10px 20px"}}>Major Projects</label>
                                 <textarea 
                                     rows="2"
-                                    className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2 text-sm outline-none resize-none"  style={{padding:"20px 20px"}}
-                                    placeholder="Briefly describe your top 2 projects..." 
+                                    className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2 text-sm outline-none resize-none" style={{padding:"20px 20px"}}
+                                    placeholder="Briefly describe your top projects..." 
                                     value={stuData.projects} 
                                     onChange={(e)=>setStuData({...stuData, projects: e.target.value})} 
                                 />
@@ -177,25 +173,3 @@ export default function ViewStudent({ view, stuData, setStuData, handleSubmit })
         </section>
     );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
